@@ -1,0 +1,8 @@
+server.port: 8095
+
+spring:
+  application:
+    name: scalable-crud-app
+  jpa:
+    hibernate:
+      ddl-auto: create
