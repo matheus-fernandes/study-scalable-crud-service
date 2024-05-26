@@ -1,0 +1,25 @@
+services:
+  db:
+    image: postgres:latest
+    ports:
+      - "5432:5432"
+    environment:
+      - POSTGRES_PASSWORD=test
+      - POSTGRES_DB=test
+    volumes:
+      - db:/data/db
+  backend:
+    image: matheusfernandes/scalable-crud-service:0.0.1-SNAPSHOT
+    ports:
+      - "8095:8095"
+    depends_on:
+      - db
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://db:5432/test?loggerLevel=OFF
+      - SPRING_DATASOURCE_USERNAME=postgres
+      - SPRING_DATASOURCE_PASSWORD=test
+      - SERVER_PORT=8095
+volumes:
+  db:
+    driver:
+      local
