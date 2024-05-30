@@ -9,14 +9,21 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.Optional;
 
+import static org.springframework.http.MediaType.ALL_VALUE;
+import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
+
 @RestController
-@RequestMapping(value = "/users", consumes = "application/json", produces = "application/json")
+@RequestMapping(
+        value = "/users",
+        consumes = APPLICATION_JSON_VALUE,
+        produces = APPLICATION_JSON_VALUE
+)
 public class UserController {
 
     @Autowired
     private UserRepository userRepository;
 
-    @GetMapping
+    @GetMapping(consumes = ALL_VALUE)
     public ResponseEntity<Page<User>> getAllUsers(
             @RequestParam(name = "page", defaultValue = "0") int page,
             @RequestParam(name = "size", defaultValue = "10") int size) {
@@ -25,7 +32,7 @@ public class UserController {
         return ResponseEntity.ok(users);
     }
 
-    @GetMapping("/{id}")
+    @GetMapping(path = "/{id}", consumes = ALL_VALUE)
     public ResponseEntity<User> getUserById(@PathVariable Long id) {
         Optional<User> userOptional = userRepository.findById(id);
 
