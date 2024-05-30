@@ -1,3 +1,8 @@
+info:
+  app:
+    name: "@project.name@"
+    version: "@project.version@"
+
 server.port: 8095
 
 spring:
@@ -6,7 +11,22 @@ spring:
   jpa:
     hibernate:
       ddl-auto: create
-
     properties:
       hibernate:
         dialect: org.hibernate.dialect.PostgreSQLDialect
+
+management:
+  endpoints:
+    enabled-by-default: false
+    web:
+      exposure:
+        include: "health,info"
+  endpoint:
+    health:
+      enabled: true
+      show-components: always
+    info:
+      enabled: true
+  info:
+    env:
+      enabled: true
